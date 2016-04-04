@@ -6,6 +6,7 @@ MusicMachine = new Mongo.Collection("musicMachine");
 if (Meteor.isClient) {
 
   Meteor.startup(function () {
+    Session.set('startdac', 0)
 
 });
 
@@ -20,7 +21,7 @@ if (Meteor.isClient) {
           playAll();
 
         }
-        else if (start.start==0) {
+        else if (starter.start==0) {
           stopAll();
         }
       }
@@ -75,6 +76,20 @@ if (Meteor.isClient) {
       return Session.get('arp');
     },
 
+    "chords": function () {
+      var starter = MusicMachine.findOne();
+      if (starter) {
+        if (starter.chords==1) {
+          playChords();
+
+        } else if (starter.chords==0) {
+
+          stopChords();
+
+        }
+      }
+      return Session.get('chord');
+    },
    
 
     //don't forget the commas between each function
@@ -90,15 +105,31 @@ if (Meteor.isClient) {
       }
     },
 
+  "sliderVal2":  function() { 
+    var slider = MusicMachine.findOne();
+    if (slider2) { 
+        Template.instance().$('#slider2').data('uiSlider').value(slider.slide2);
+        setSpeed(slider.slide2/50);
+        return slider.slide2;
+      }
+    },
+
   });
 
 
   Template.playground.events({
 
      "click button.startButton": function () { //get data from class=startButton
-      Session.set('startdac', 1);
-      var val = MusicMachine.findOne({});
-      MusicMachine.update({ _id: val._id }, {$set: {start: 1}});
+      if (Session.get('startdac') === 0) {
+        Session.set('startdac', 1);
+        var val = MusicMachine.findOne({});
+        MusicMachine.update({ _id: val._id }, {$set: {start: 1}});
+      }
+      else {
+        Session.set('startdac', 0);
+        var val = MusicMachine.findOne({});
+        MusicMachine.update({ _id: val._id }, {$set: {start: 0}})
+      }
     },
 
      "click button.myButton1": function () {
@@ -138,6 +169,20 @@ if (Meteor.isClient) {
       var val = MusicMachine.findOne({});
       MusicMachine.update({ _id: val._id }, {$set: {arp: 0}});
 
+    },
+
+      "click button.myButton7": function () {
+      Session.set('chords', 1);
+      var val = MusicMachine.findOne({});
+      MusicMachine.update({ _id: val._id }, {$set: {chords: 1}});
+
+    },
+
+      "click button.myButton8": function () {
+      Session.set('chords', 0);
+      var val = MusicMachine.findOne({});
+      MusicMachine.update({ _id: val._id }, {$set: {chords: 0}});
+
     }
 
   });
@@ -157,7 +202,27 @@ if (Meteor.isClient) {
         });
     }
   });
+
+    Template.playground.onRendered(function() {
+    var handler = _.throttle(function(event, ui) {
+        var val = MusicMachine.findOne({});
+        MusicMachine.update({ _id: val._id }, {$set: {slide2: ui.value}});
+    }, 50, { leading: false });
+    
+    if (!this.$('#slider2').data('uiSlider')) {
+        $("#slider2").slider({
+            slide: handler,
+            min: 0,
+            max: 10
+        });
+    }
+  });
+
 }
+
+
+
+
 
 if (Meteor.isServer) {
 //      MusicMachine.remove({});

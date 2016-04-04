@@ -4,21 +4,53 @@
 <!-- Remember - if you want to control functions globaly, don't declare them as var. Just name them. -->
 
 <button class="startButton">DAC</button><br><br>
-<br>Track 1		<button class="myButton1">ON</button>
-<button class="myButton2">OFF</button>
-<br>Track 2		<button class="myButton3">ON</button>
- <button class="myButton4">OFF</button>
-<br>Track 3		<button class="myButton5">ON</button>
- <button class="myButton6">OFF</button>
 
- <br>
+<div class="row">
+	<div class="col-md-1">Drums</div>
+	<div class="col-md-1">
+		<button class="myButton1">ON</button>
+	</div>
+	<div class="col-md-1">
+		<button class="myButton2">OFF</button>
+	</div>
+</div>
+<div class="row">
+	<div id="slider2"></div>
+  	Volume = {{sliderVal2}}
+</div>
+<div class="row">
+	<div class="col-md-1">Bassline</div>
+	<div class="col-md-1">
+		<button class="myButton3">ON</button>
+	</div>
+	<div class="col-md-1">
+		<button class="myButton4">OFF</button>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-1">Arpeggio</div>
+	<div class="col-md-1">
+		<button class="myButton5">ON</button>
+	</div>
+	<div class="col-md-1">
+		<button class="myButton6">OFF</button>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-1">Chords</div>
+	<div class="col-md-1">
+		<button class="myButton7">ON</button>
+	</div>
+	<div class="col-md-1">
+		<button class="myButton8">OFF</button>
+	</div>
+</div>
 
- <h2> {{startdac}} {{drums}} {{bass}} {{arp}} </h2>
+ <h2> {{startdac}} {{drums}} {{bass}} {{arp}} {{chords}} </h2>
 
 <br>
   <div id="slider1"></div>
   <br>
   Current Speed = {{sliderVal1}}
-
 
 </template>

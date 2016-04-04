@@ -3,12 +3,19 @@
 maxim1 = new Maxim();
 maxim2 = new Maxim();
 maxim3 = new Maxim();
+maxim4 = new Maxim();
 player1 = maxim1.loadFile("drums1.wav");
 player1.setLooping(true);
 player2 = maxim2.loadFile("bassline.wav");
 player2.setLooping(true);
 player3 = maxim3.loadFile("arp.wav");
 player3.setLooping(true);
+player4 = maxim4.loadFile("chords.wav");
+player4.setLooping(true);
+
+//snaredrum1 works
+//cymbal1 works
+//bassdrum1 works
 
 playDrums = function(){
 	player1.volume(1);
@@ -34,11 +41,20 @@ stopArp = function(){
 	player3.volume(0);
 }
 
+playChords = function(){
+	player4.volume(1);
+}
+
+stopChords = function(){
+	player4.volume(0);
+}
+
 playAll = function() {
 
 	player1.play();
 	player2.play();
 	player3.play();
+	player4.play();
 }
 
 stopAll = function() {
@@ -46,6 +62,7 @@ stopAll = function() {
 	player1.stop();
 	player2.stop();
 	player3.stop();
+	player4.stop();
 }
 
 setSpeed = function(speed) {
@@ -53,6 +70,7 @@ setSpeed = function(speed) {
 	player1.speed(speed);
 	player2.speed(speed);
 	player3.speed(speed);
+	player4.speed(speed);
 
 }
 
